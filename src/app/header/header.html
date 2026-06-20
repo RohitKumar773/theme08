@@ -1,0 +1,121 @@
+<header class="w-full bg-[#FCFBF7] border-b border-stone-200/60 sticky top-0 z-50 transition-all duration-300">
+  <!-- Upper Micro-Bar for Premium Detail Tracking -->
+  <div class="w-full bg-stone-900 text-[#FCFBF7] text-[10px] uppercase tracking-[0.3em] font-medium py-2 px-6 sm:px-8 flex justify-between items-center border-b border-stone-800">
+    <div>Chambers: Sector 62, Institutional Area, Noida</div>
+    <div class="hidden sm:block">Privileged & Confidential Counsel</div>
+  </div>
+
+  <!-- Main Luxury Navigation Header Bar -->
+  <div class="mx-auto max-w-7xl h-24 flex items-center justify-between px-6 sm:px-8">
+    
+    <!-- Left Logo Frame: High-End Custom Typography Layout -->
+    <a routerLink="/" class="flex items-center gap-3.5 group shrink-0 select-none">
+      <div class="flex items-center justify-center w-12 h-12 border border-[#B39359]/30 bg-white shadow-sm transition-all duration-300 group-hover:border-[#B39359] group-hover:bg-stone-900 group-hover:text-[#FCFBF7] text-[#B39359]">
+        <!-- Elite Balanced Legal Scale Asset Symbol -->
+        <svg class="h-5 w-5 transition-transform duration-300 group-hover:rotate-12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v17m0-17L7 8m5-5l5 5m-5 12h5m-5 0H7m0 0a3 3 0 110-6 3 3 0 010 6zm10 0a3 3 0 110-6 3 3 0 010 6z" />
+        </svg>
+      </div>
+      <div class="flex flex-col leading-none">
+        <span class="text-2xl font-light tracking-[0.3em] text-stone-900 font-serif uppercase transition-colors group-hover:text-[#B39359]">LAWE</span>
+        <span class="text-[9px] font-semibold tracking-[0.2em] text-stone-400 font-sans uppercase mt-1.5">Advocates & Solicitors</span>
+      </div>
+    </a>
+
+    <!-- Center Desktop Links: Clean Geometric Editorial Sizing -->
+    <nav class="hidden lg:flex items-center gap-10 h-full">
+      @for (item of navItems; track item.label) {
+        @if (!item.dropdown) {
+          <a [routerLink]="item.link"
+             routerLinkActive="text-[#B39359] font-semibold before:scale-x-100"
+             [routerLinkActiveOptions]="{ exact: true }"
+             class="text-[11px] uppercase tracking-[0.25em] font-medium text-stone-800 transition-all duration-200 hover:text-[#B39359] relative h-full flex items-center before:content-[''] before:absolute before:bottom-0 before:left-0 before:w-full before:h-[2px] before:bg-[#B39359] before:scale-x-0 before:origin-left before:transition-transform before:duration-300 hover:before:scale-x-100">
+            {{ item.label }}
+          </a>
+        } @else {
+          <!-- Dropdown Interactive Node Frame -->
+          <div class="relative h-full flex items-center group/drop">
+            <button (click)="toggleDropdown(item.label, $event)"
+                    class="flex items-center gap-1 text-[11px] uppercase tracking-[0.25em] font-medium text-stone-800 transition-colors duration-200 hover:text-[#B39359] focus:outline-none">
+              <span>{{ item.label }}</span>
+              <svg class="h-3 w-3 transition-transform duration-300 text-stone-400 group-hover/drop:text-[#B39359]" [class.rotate-180]="activeDropdown() === item.label" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+
+            @if (activeDropdown() === item.label) {
+              <div class="absolute top-[calc(100%-12px)] left-1/2 -translate-x-1/2 w-56 border border-stone-200 bg-[#FCFBF7] p-2 shadow-xl animate-in fade-in slide-in-from-top-3 duration-200">
+                <div class="space-y-0.5">
+                  @for (subItem of item.dropdown; track subItem.name) {
+                    <a [routerLink]="subItem.route"
+                       routerLinkActive="text-[#FCFBF7] bg-stone-900 font-medium"
+                       (click)="activeDropdown.set(null)"
+                       class="block px-4 py-3 text-[10px] uppercase tracking-widest font-medium text-stone-800 hover:bg-stone-100 hover:text-[#B39359] transition-all">
+                      {{ subItem.name }}
+                    </a>
+                  }
+                </div>
+              </div>
+            }
+          </div>
+        }
+      }
+    </nav>
+
+    <!-- Right Action Call: Luxury Clean Button Outline Layout -->
+    <div class="hidden lg:flex items-center shrink-0">
+      <a routerLink="/contact" class="inline-flex items-center justify-center px-6 h-11 border border-stone-900 text-stone-900 text-[10px] uppercase tracking-[0.25em] font-bold bg-transparent transition-all duration-300 hover:bg-stone-900 hover:text-[#FCFBF7] hover:border-stone-900">
+        Secure Intake
+      </a>
+    </div>
+
+    <!-- Mobile Navigation Toggle Menu Trigger -->
+    <div class="lg:hidden flex items-center">
+      <button (click)="toggleMobileMenu()" class="text-stone-900 hover:text-[#B39359] p-2.5 border border-stone-200 transition-colors focus:outline-none" aria-label="Toggle Menu">
+        <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          @if (!isMobileMenuOpen()) {
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+          } @else {
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          }
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Drawer Panel Component Navigation Overlay -->
+  @if (isMobileMenuOpen()) {
+    <div class="lg:hidden border-t border-stone-200 bg-[#FCFBF7] px-8 py-8 space-y-6 shadow-xl animate-in fade-in slide-in-from-top-4 duration-300">
+      @for (item of navItems; track item.label) {
+        @if (!item.dropdown) {
+          <div>
+            <a [routerLink]="item.link" 
+               routerLinkActive="text-[#B39359] font-bold pl-3 border-l border-[#B39359]"
+               [routerLinkActiveOptions]="{ exact: true }"
+               (click)="isMobileMenuOpen.set(false)" 
+               class="block text-xs uppercase tracking-[0.25em] font-semibold text-stone-900 hover:text-[#B39359] py-1">
+              {{ item.label }}
+            </a>
+          </div>
+        } @else {
+          <div class="space-y-3 pt-2">
+            <span class="block text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400 border-b border-stone-200/60 pb-1.5">{{ item.label }}</span>
+            @for (subItem of item.dropdown; track subItem.name) {
+              <a [routerLink]="subItem.route" 
+                 routerLinkActive="text-[#B39359] font-bold pl-3 border-l border-[#B39359]"
+                 (click)="isMobileMenuOpen.set(false)" 
+                 class="block pl-4 text-xs uppercase tracking-[0.25em] font-medium text-stone-700 hover:text-[#B39359] py-1">
+                {{ subItem.name }}
+              </a>
+            }
+          </div>
+        }
+      }
+      <div class="pt-4">
+        <a routerLink="/contact" (click)="isMobileMenuOpen.set(false)" class="flex w-full items-center justify-center h-12 border border-stone-900 text-stone-900 text-[10px] uppercase tracking-[0.25em] font-bold bg-transparent">
+          Secure Intake
+        </a>
+      </div>
+    </div>
+  }
+</header>
