@@ -10,17 +10,18 @@ import { Vision } from './vision/vision';
 import { Rewards } from './rewards/rewards';
 
 export const routes: Routes = [
-    {
-        path: '', component: Viewport,
-        children: [
-            { path: '', component: Homepage },
-            { path: 'about', component: About },
-            { path: 'contact', component: Contact },
-            { path: 'testimonials', component: Testimonials },
-            { path: 'practice-area', component: PracticeArea },
-            { path: 'gallery', component: Gallery },
-            { path: 'vision', component: Vision },
-            { path: 'rewards', component: Rewards }
-        ]
-    }
+    // {
+    //     path: '', component: Viewport,
+    //     children: [
+    //         { path: '', component: Homepage },
+    //         { path: 'about', component: About },
+    //         { path: 'contact', component: Contact },
+    //         { path: 'testimonials', component: Testimonials },
+    //         { path: 'practice-area', component: PracticeArea },
+    //         { path: 'gallery', component: Gallery },
+    //         { path: 'vision', component: Vision },
+    //         { path: 'rewards', component: Rewards }
+    //     ]
+    // }
+    { path: '', component: Homepage }
 ];

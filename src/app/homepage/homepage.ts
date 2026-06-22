@@ -1,13 +1,36 @@
-import { Component, signal } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Component, signal, HostListener } from '@angular/core';
+import { About } from "../about/about";
+import { PracticeArea } from "../practice-area/practice-area";
+import { Gallery } from "../gallery/gallery";
+import { Testimonials } from "../testimonials/testimonials";
+import { Rewards } from "../rewards/rewards";
+import { Vision } from "../vision/vision";
+import { Contact } from "../contact/contact";
 
 @Component({
   selector: 'app-homepage',
-  imports: [],
+  imports: [About, PracticeArea, Gallery, Testimonials, Rewards, Vision, Contact],
   templateUrl: './homepage.html',
   styleUrl: './homepage.css',
 })
 export class Homepage {
+  isMobileMenuOpen = signal<boolean>(false);
+  activeDropdown = signal<string | null>(null);
+
+  toggleMobileMenu(): void {
+    this.isMobileMenuOpen.update(state => !state);
+  }
+
+  toggleDropdown(label: string, event: Event): void {
+    event.stopPropagation();
+    this.activeDropdown.update(current => current === label ? null : label);
+  }
+
+  @HostListener('document:click')
+  closeDropdowns(): void {
+    this.activeDropdown.set(null);
+  }
+
   practiceAreas = signal([
     {
       title: 'Fire Accident',
